@@ -1,102 +1,98 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PMBA Study OS — Dashboard Offline</title>
-  <style>
-    :root{
-      --bg:#f5f5f7;--panel:#ffffffcc;--card:#fff;--ink:#111827;--muted:#6b7280;--line:#e5e7eb;
-      --blue:#2563eb;--green:#16a34a;--amber:#d97706;--red:#dc2626;--purple:#7c3aed;--dark:#0f172a;
-      --shadow:0 20px 60px rgba(15,23,42,.08);--radius:24px;
-    }
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:radial-gradient(circle at top left,#e0ecff,transparent 36%),radial-gradient(circle at top right,#efe7ff,transparent 34%),var(--bg);color:var(--ink)}
-    .app{display:grid;grid-template-columns:292px 1fr;min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;padding:22px;background:rgba(255,255,255,.72);backdrop-filter:blur(22px);border-right:1px solid rgba(229,231,235,.9)}
-    .brand{display:flex;align-items:center;gap:12px;margin-bottom:24px}.logo{width:46px;height:46px;border-radius:16px;background:linear-gradient(135deg,var(--dark),var(--blue));display:grid;place-items:center;color:white;font-weight:900;box-shadow:var(--shadow)}
-    .brand h1{font-size:18px;line-height:1;margin:0}.brand p{font-size:12px;color:var(--muted);margin:4px 0 0}.nav{display:grid;gap:8px}.nav button{border:0;background:transparent;text-align:left;padding:13px 14px;border-radius:16px;font-weight:800;color:#475569;cursor:pointer;display:flex;gap:10px;align-items:center}.nav button.active,.nav button:hover{background:#111827;color:#fff}
-    .sidebox{margin-top:20px;padding:16px;border:1px solid var(--line);border-radius:20px;background:#fff}.sidebox small{display:block;color:var(--muted);font-weight:700}.sidebox strong{font-size:28px}.main{padding:28px;max-width:1440px;width:100%;margin:0 auto}.topbar{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:24px}.headline h2{font-size:34px;margin:0;letter-spacing:-1.2px}.headline p{margin:6px 0 0;color:var(--muted)}
-    .actions{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:15px;padding:12px 15px;font-weight:900;cursor:pointer;background:#111827;color:#fff}.btn.light{background:#fff;color:#111827;border:1px solid var(--line)}.btn.danger{background:#fee2e2;color:#991b1b}.grid{display:grid;gap:18px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:18px}.card{background:var(--panel);border:1px solid rgba(229,231,235,.9);box-shadow:var(--shadow);border-radius:var(--radius);padding:20px}.metric span{font-size:12px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.06em}.metric b{display:block;font-size:31px;margin-top:8px;letter-spacing:-1px}.progress{height:13px;background:#e5e7eb;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),#22c55e);border-radius:99px;transition:.25s}.section{display:none}.section.active{display:block}.two{grid-template-columns:1.25fr .75fr}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.title{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.title h3{margin:0;font-size:20px}.title small{color:var(--muted);font-weight:800}.list{display:grid;gap:10px}.item{display:flex;align-items:flex-start;gap:12px;padding:13px;border:1px solid var(--line);border-radius:16px;background:#fff}.item input{width:20px;height:20px;accent-color:var(--blue);margin-top:1px}.item label{font-weight:800;line-height:1.35;cursor:pointer}.item p{margin:4px 0 0;color:var(--muted);font-size:13px}.done label{text-decoration:line-through;color:#94a3b8}.pill{display:inline-flex;align-items:center;border-radius:99px;background:#eff6ff;color:#1d4ed8;font-size:12px;font-weight:900;padding:6px 10px}.week{border-left:5px solid var(--blue)}.subject{border-top:5px solid var(--dark)}.note{width:100%;min-height:170px;border:1px solid var(--line);border-radius:18px;padding:16px;font:inherit;resize:vertical;background:#fff}.mindmap{display:grid;place-items:center;min-height:360px;background:linear-gradient(135deg,#fff,#f8fafc);position:relative;overflow:hidden}.node{position:absolute;padding:12px 16px;border-radius:18px;background:#111827;color:#fff;font-weight:900;box-shadow:var(--shadow);font-size:13px}.center{font-size:18px;background:linear-gradient(135deg,var(--blue),var(--purple));}.n1{top:42px;left:42px}.n2{top:48px;right:50px;background:var(--green)}.n3{bottom:46px;left:70px;background:var(--amber)}.n4{bottom:54px;right:56px;background:var(--red)}.line{position:absolute;height:2px;background:#cbd5e1;transform-origin:left center}.l1{width:230px;top:150px;left:220px;transform:rotate(-25deg)}.l2{width:230px;top:150px;right:220px;transform:rotate(205deg)}.l3{width:220px;bottom:140px;left:240px;transform:rotate(24deg)}.l4{width:220px;bottom:140px;right:240px;transform:rotate(156deg)}
-    .footer{margin-top:22px;text-align:center;color:var(--muted);font-size:12px}@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.stats,.two,.three{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}.headline h2{font-size:28px}}
-    @media print{.sidebar,.actions{display:none}.app{display:block}.main{padding:0}.card{box-shadow:none}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMBA Study OS — Conteúdos</title>
+<style>
+:root{--bg:#f5f5f7;--card:#ffffff;--glass:rgba(255,255,255,.72);--ink:#101828;--muted:#667085;--line:#e4e7ec;--blue:#2563eb;--green:#16a34a;--amber:#d97706;--red:#dc2626;--purple:#7c3aed;--black:#0b1220;--radius:22px;--shadow:0 18px 50px rgba(16,24,40,.08)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#eaf1ff,transparent 35%),linear-gradient(180deg,#f8fafc,#f5f5f7);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}button,input,textarea,select{font:inherit}.app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}.side{position:sticky;top:0;height:100vh;padding:24px;background:rgba(255,255,255,.75);backdrop-filter:blur(18px);border-right:1px solid var(--line)}.brand{display:flex;gap:12px;align-items:center;margin-bottom:26px}.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,#111827,#2563eb);display:grid;place-items:center;color:white;font-weight:900}.brand h1{font-size:18px;margin:0}.brand p{font-size:12px;margin:2px 0;color:var(--muted)}.nav{display:grid;gap:8px}.nav button{border:0;background:transparent;text-align:left;padding:13px 14px;border-radius:15px;color:#475467;font-weight:800;cursor:pointer}.nav button.active,.nav button:hover{background:#111827;color:white}.main{padding:30px;max-width:1440px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:22px}.eyebrow{font-size:12px;font-weight:900;color:var(--blue);text-transform:uppercase;letter-spacing:.08em}.title{font-size:34px;line-height:1.05;margin:6px 0 8px;letter-spacing:-.04em}.sub{color:var(--muted);margin:0;max-width:720px}.grid{display:grid;gap:18px}.stats{grid-template-columns:repeat(4,1fr);margin:22px 0}.card{background:var(--glass);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.8);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}.metric small{color:var(--muted);font-weight:800}.metric strong{display:block;font-size:30px;margin-top:8px;letter-spacing:-.04em}.bar{height:12px;background:#eaecf0;border-radius:50px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:50px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.search{flex:1;min-width:260px;border:1px solid var(--line);background:white;border-radius:15px;padding:13px 15px}.pill{border:1px solid var(--line);background:white;border-radius:999px;padding:11px 14px;cursor:pointer;font-weight:800;color:#475467}.pill.active{background:#111827;color:white;border-color:#111827}.subjects{grid-template-columns:repeat(3,1fr)}.subject{cursor:pointer;transition:.2s}.subject:hover{transform:translateY(-3px)}.subject h3{margin:0 0 8px;font-size:20px}.subject p{color:var(--muted);margin:0 0 14px}.topics{display:grid;gap:10px;margin-top:14px}.topic{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px;border:1px solid var(--line);background:white;border-radius:16px;cursor:pointer}.topic:hover{border-color:#bfdbfe;background:#f8fbff}.topic span{font-weight:850}.badges{display:flex;gap:5px;flex-wrap:wrap}.badge{font-size:10px;font-weight:900;border-radius:999px;padding:4px 7px;background:#f2f4f7;color:#475467}.done{background:#dcfce7;color:#166534}.detail{display:none}.detail.active{display:block}.back{border:0;background:#111827;color:white;border-radius:14px;padding:12px 16px;font-weight:900;cursor:pointer}.detailHead{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:18px}.checks{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.check{display:flex;align-items:center;gap:8px;background:white;border:1px solid var(--line);border-radius:999px;padding:10px 12px;font-weight:850}.columns{grid-template-columns:1.1fr .9fr}.field{display:grid;gap:8px;margin-bottom:14px}.field label{font-weight:900;font-size:13px;color:#344054}.field textarea,.field input{width:100%;border:1px solid var(--line);border-radius:16px;padding:14px;background:white;min-height:120px;resize:vertical}.field input{min-height:auto}.save{background:var(--blue);color:white;border:0;border-radius:15px;padding:13px 16px;font-weight:900;cursor:pointer}.miniList{display:grid;gap:10px}.empty{color:var(--muted);font-size:14px;padding:14px;background:#f9fafb;border:1px dashed var(--line);border-radius:16px}.flash,.errorItem,.linkItem{padding:14px;background:#fff;border:1px solid var(--line);border-radius:16px}.flash b,.errorItem b{display:block;margin-bottom:5px}.danger{background:#fff1f2}.tools{display:flex;gap:8px}.iconbtn{border:1px solid var(--line);background:white;border-radius:12px;padding:10px;cursor:pointer}.mobileNav{display:none}@media(max-width:980px){.app{display:block}.side{display:none}.main{padding:18px}.mobileNav{display:flex;gap:8px;overflow:auto;margin-bottom:18px}.mobileNav button{white-space:nowrap;border:0;border-radius:999px;padding:10px 13px;font-weight:850}.mobileNav button.active{background:#111827;color:white}.stats,.subjects,.columns{grid-template-columns:1fr}.top,.detailHead{display:block}.title{font-size:28px}}
+</style>
 </head>
 <body>
 <div class="app">
-  <aside class="sidebar">
-    <div class="brand"><div class="logo">PM</div><div><h1>PMBA Study OS</h1><p>Seu painel pessoal de aprovação</p></div></div>
-    <nav class="nav">
-      <button class="active" data-page="dashboard">🏠 Painel</button>
-      <button data-page="cronograma">📅 Cronograma</button>
-      <button data-page="materias">📚 Matérias</button>
-      <button data-page="resumos">📝 Resumos</button>
-      <button data-page="mapas">🧠 Mapas Mentais</button>
-      <button data-page="erros">🎯 Caderno de Erros</button>
-    </nav>
-    <div class="sidebox"><small>Progresso geral</small><strong id="sidePercent">0%</strong><div class="progress"><i id="sideBar"></i></div></div>
-    <div class="sidebox"><small>Foco da semana</small><p style="margin:8px 0 0;font-weight:800">Constância > intensidade. Faça o mínimo todos os dias.</p></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div class="headline"><h2 id="pageTitle">Painel de estudos</h2><p>Controle sua preparação para o Concurso da Polícia Militar da Bahia em um único lugar.</p></div><div class="actions"><button class="btn light" onclick="exportData()">Exportar progresso</button><button class="btn light" onclick="window.print()">Imprimir/PDF</button><button class="btn danger" onclick="resetAll()">Zerar</button></div></div>
+<aside class="side">
+  <div class="brand"><div class="logo">PM</div><div><h1>PMBA Study OS</h1><p>Seu painel pessoal de aprovação</p></div></div>
+  <nav class="nav">
+    <button class="active" onclick="showView('dashboard',this)">📊 Painel</button>
+    <button onclick="showView('conteudos',this)">📚 Conteúdos</button>
+    <button onclick="showView('revisoes',this)">🔁 Revisões</button>
+    <button onclick="showView('erros',this)">⚠️ Caderno de Erros</button>
+  </nav>
+</aside>
+<main class="main">
+  <div class="mobileNav"><button class="active" onclick="showView('dashboard',this)">Painel</button><button onclick="showView('conteudos',this)">Conteúdos</button><button onclick="showView('revisoes',this)">Revisões</button><button onclick="showView('erros',this)">Erros</button></div>
 
-    <section id="dashboard" class="section active">
-      <div class="grid stats"><div class="card metric"><span>Progresso</span><b id="percent">0%</b></div><div class="card metric"><span>Concluídos</span><b id="done">0</b></div><div class="card metric"><span>Total de metas</span><b id="total">0</b></div><div class="card metric"><span>Simulados</span><b id="simulados">0</b></div></div>
-      <div class="card"><div class="title"><h3>Barra de evolução</h3><small id="progressLabel">0/0</small></div><div class="progress"><i id="mainBar"></i></div></div>
-      <div class="grid two" style="margin-top:18px"><div class="card"><div class="title"><h3>Próximas prioridades</h3><span class="pill">Hoje</span></div><div id="todayList" class="list"></div></div><div class="card"><div class="title"><h3>Notas rápidas</h3><small>salva automático</small></div><textarea id="quickNotes" class="note" placeholder="Anote dúvidas, links, pontos fracos..."></textarea></div></div>
-    </section>
+  <section id="dashboard" class="view">
+    <div class="top"><div><div class="eyebrow">Painel pessoal</div><h2 class="title">Estude pelo assunto que escolher no dia.</h2><p class="sub">Sem cronograma fixo. Você escolhe a matéria, abre o assunto e registra anotações, resumo, links, flashcards e erros.</p></div></div>
+    <div class="grid stats">
+      <div class="card metric"><small>Progresso geral</small><strong id="mProgress">0%</strong><div class="bar"><div id="mFill" class="fill" style="width:0%"></div></div></div>
+      <div class="card metric"><small>Assuntos concluídos</small><strong id="mDone">0</strong></div>
+      <div class="card metric"><small>Total de assuntos</small><strong id="mTotal">0</strong></div>
+      <div class="card metric"><small>Erros registrados</small><strong id="mErrors">0</strong></div>
+    </div>
+    <div class="card"><h3>Começar agora</h3><p class="sub">Escolha uma matéria abaixo e abra qualquer assunto para estudar.</p><div id="quickSubjects" class="toolbar"></div></div>
+  </section>
 
-    <section id="cronograma" class="section"><div id="weeks" class="grid two"></div></section>
-    <section id="materias" class="section"><div id="subjects" class="grid three"></div></section>
-    <section id="resumos" class="section"><div id="summaries" class="grid two"></div></section>
-    <section id="mapas" class="section"><div class="card mindmap"><div class="line l1"></div><div class="line l2"></div><div class="line l3"></div><div class="line l4"></div><div class="node center">PMBA</div><div class="node n1">Português</div><div class="node n2">Direito</div><div class="node n3">Matemática</div><div class="node n4">Informática</div></div></section>
-    <section id="erros" class="section"><div class="card"><div class="title"><h3>Caderno de Erros</h3><small>salva automático</small></div><textarea id="errorBook" class="note" style="min-height:420px" placeholder="Ex: Errei crase porque confundi verbo com substantivo feminino..."></textarea></div></section>
-    <div class="footer">Arquivo offline • seus dados ficam salvos somente neste navegador via localStorage.</div>
-  </main>
+  <section id="conteudos" class="view" style="display:none">
+    <div class="top"><div><div class="eyebrow">Biblioteca do edital</div><h2 class="title">Todos os conteúdos separados por matéria.</h2><p class="sub">Clique em qualquer assunto para abrir a página dele.</p></div></div>
+    <div class="toolbar"><input id="search" class="search" placeholder="Buscar matéria ou assunto..." oninput="renderSubjects()"><button class="pill active" onclick="setFilter('all',this)">Todos</button><button class="pill" onclick="setFilter('base',this)">Base</button><button class="pill" onclick="setFilter('direito',this)">Direito</button><button class="pill" onclick="setFilter('exatas',this)">Exatas</button></div>
+    <div id="subjects" class="grid subjects"></div>
+  </section>
+
+  <section id="detail" class="detail">
+    <button class="back" onclick="closeTopic()">← Voltar para conteúdos</button>
+    <div class="detailHead card" style="margin-top:16px"><div><div class="eyebrow" id="dSubject"></div><h2 class="title" id="dTitle"></h2><p class="sub" id="dDesc"></p><div class="checks"><label class="check"><input type="checkbox" id="ckTheory" onchange="saveChecks()"> Teoria</label><label class="check"><input type="checkbox" id="ckQuestions" onchange="saveChecks()"> Questões</label><label class="check"><input type="checkbox" id="ckReview" onchange="saveChecks()"> Revisão</label></div></div></div>
+    <div class="grid columns">
+      <div class="card">
+        <div class="field"><label>Anotações livres</label><textarea id="notes" placeholder="Escreva o que aprendeu, dúvidas, exemplos..."></textarea></div>
+        <div class="field"><label>Resumo do assunto</label><textarea id="summary" placeholder="Crie seu resumo objetivo aqui..."></textarea></div>
+        <button class="save" onclick="saveTopicText()">Salvar anotações</button>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>Links de aulas e materiais</h3><div class="field"><input id="linkInput" placeholder="Cole um link ou referência"></div><button class="save" onclick="addLink()">Adicionar link</button><div id="links" class="miniList" style="margin-top:12px"></div></div>
+        <div class="card"><h3>Flashcards</h3><div class="field"><input id="front" placeholder="Pergunta"></div><div class="field"><input id="back" placeholder="Resposta"></div><button class="save" onclick="addFlashcard()">Criar flashcard</button><div id="flashcards" class="miniList" style="margin-top:12px"></div></div>
+        <div class="card"><h3>Caderno de erro</h3><div class="field"><input id="errQ" placeholder="Questão/erro cometido"></div><div class="field"><input id="errA" placeholder="Correção/aprendizado"></div><button class="save" onclick="addError()">Registrar erro</button><div id="topicErrors" class="miniList" style="margin-top:12px"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="revisoes" class="view" style="display:none"><div class="top"><div><div class="eyebrow">Revisão ativa</div><h2 class="title">Assuntos para revisar.</h2><p class="sub">Aqui aparecem os assuntos marcados como teoria ou questões, mas ainda sem revisão.</p></div></div><div id="reviewList" class="grid subjects"></div></section>
+  <section id="erros" class="view" style="display:none"><div class="top"><div><div class="eyebrow">Caderno central</div><h2 class="title">Todos os erros registrados.</h2><p class="sub">Use essa área para revisar suas maiores falhas antes dos simulados.</p></div></div><div id="allErrors" class="grid"></div></section>
+</main>
 </div>
 <script>
-const DATA={
-weeks:[
-{w:'Semana 1',tasks:['Português: Fonética e Fonologia','Matemática: Aritmética básica e frações','Direito Constitucional: Arts. 1º ao 4º','25 questões + caderno de erros','TAF: corrida leve + flexões']},
-{w:'Semana 2',tasks:['Português: Acentuação gráfica','Matemática: Razão, proporção e regra de três','Direito Penal: lei penal no tempo e espaço','Mini simulado semanal','Revisão 24h/7d dos erros']},
-{w:'Semana 3',tasks:['Português: Verbos e pronomes','Matemática: Porcentagem e juros','Direito Penal: fato típico','Informática: Word e Windows','Simulado parcial']},
-{w:'Semana 4',tasks:['Português: Sintaxe básica','Matemática: funções e progressões','Direito Constitucional: direitos sociais','Excel: fórmulas essenciais','Simulado de metade do edital']},
-{w:'Semana 5',tasks:['Português: período composto','Matemática: geometria','Direito Administrativo: princípios','Informática: redes e protocolos','Revisão forte do caderno de erros']},
-{w:'Semana 6',tasks:['Português: concordância','Matemática: combinatória','Direito Administrativo: atos administrativos','Direito Penal: crimes contra a vida','TAF: treino dinâmico']},
-{w:'Semana 7',tasks:['Português: regência e crase','Raciocínio lógico: proposições','Direitos Humanos e igualdade racial','Informática: segurança','Simulado completo']},
-{w:'Semana 8',tasks:['Português: interpretação','RLM: tabelas-verdade','Direito Administrativo: licitações','Revisão final por erros','Simulado final + ajustes']}
-],
-subjects:[
-{name:'Língua Portuguesa',items:['Fonética','Acentuação','Morfologia','Sintaxe','Pontuação','Interpretação de texto']},
-{name:'Matemática/RLM',items:['Frações','Razão e Proporção','Porcentagem','Juros','Geometria','Proposições lógicas']},
-{name:'Direito Constitucional',items:['Princípios fundamentais','Art. 5º','Direitos sociais','Administração pública','Segurança pública']},
-{name:'Direito Penal',items:['Princípios penais','Lei penal','Teoria do crime','Crimes contra a vida','Concurso de pessoas']},
-{name:'Direito Administrativo',items:['Princípios LIMPE','Atos administrativos','Poderes administrativos','Licitações','Responsabilidade civil']},
-{name:'Informática',items:['Hardware e software','Windows','Word','Excel','Redes','Segurança da informação']}
-],
-summaries:[
-{t:'Acentuação gráfica',d:'Toda proparoxítona é acentuada. Oxítonas terminadas em A, E, O, EM, ENS recebem acento. Treine por exemplos.'},
-{t:'Frações',d:'Para somar frações com denominadores diferentes, encontre o MMC, iguale os denominadores, some os numeradores e simplifique.'},
-{t:'Art. 5º da Constituição',d:'Foque em direitos individuais, remédios constitucionais, liberdade, igualdade, legalidade e garantias processuais.'},
-{t:'Caderno de erros',d:'Não anote apenas a resposta certa. Anote o motivo do erro, a regra correta e uma frase de alerta para não repetir.'}
-]};
-let state=JSON.parse(localStorage.getItem('pmba_os_state')||'{}');
-function save(){localStorage.setItem('pmba_os_state',JSON.stringify(state));updateProgress()}
-function checked(id){return !!state[id]}
-function toggle(id){state[id]=!state[id];save();render()}
-function item(id,label,desc=''){return `<div class="item ${checked(id)?'done':''}"><input type="checkbox" ${checked(id)?'checked':''} onchange="toggle('${id}')"><div><label onclick="toggle('${id}')">${label}</label>${desc?`<p>${desc}</p>`:''}</div></div>`}
-function render(){
- document.getElementById('weeks').innerHTML=DATA.weeks.map((w,wi)=>`<div class="card week"><div class="title"><h3>${w.w}</h3><span class="pill">${w.tasks.length} metas</span></div><div class="list">${w.tasks.map((t,i)=>item(`w${wi}t${i}`,t)).join('')}</div></div>`).join('');
- document.getElementById('subjects').innerHTML=DATA.subjects.map((s,si)=>`<div class="card subject"><div class="title"><h3>${s.name}</h3></div><div class="list">${s.items.map((t,i)=>item(`s${si}i${i}`,t,'Teoria + questões + revisão')).join('')}</div></div>`).join('');
- document.getElementById('summaries').innerHTML=DATA.summaries.map(s=>`<div class="card"><div class="title"><h3>${s.t}</h3><span class="pill">Resumo</span></div><p style="color:#475569;line-height:1.7;font-weight:600">${s.d}</p></div>`).join('');
- document.getElementById('todayList').innerHTML=DATA.weeks[0].tasks.slice(0,4).map((t,i)=>item(`today${i}`,t)).join('');
- updateProgress();
-}
-function allIds(){let ids=[];DATA.weeks.forEach((w,wi)=>w.tasks.forEach((_,i)=>ids.push(`w${wi}t${i}`)));DATA.subjects.forEach((s,si)=>s.items.forEach((_,i)=>ids.push(`s${si}i${i}`)));DATA.weeks[0].tasks.slice(0,4).forEach((_,i)=>ids.push(`today${i}`));return ids}
-function updateProgress(){const ids=allIds();const done=ids.filter(id=>state[id]).length;const percent=ids.length?Math.round(done/ids.length*100):0;['mainBar','sideBar'].forEach(id=>document.getElementById(id).style.width=percent+'%');document.getElementById('percent').textContent=percent+'%';document.getElementById('sidePercent').textContent=percent+'%';document.getElementById('done').textContent=done;document.getElementById('total').textContent=ids.length;document.getElementById('progressLabel').textContent=`${done}/${ids.length}`;document.getElementById('simulados').textContent=Object.keys(state).filter(k=>state[k]&&k.includes('sim')).length}
-function resetAll(){if(confirm('Tem certeza que deseja zerar todo o progresso?')){state={};localStorage.removeItem('pmba_os_state');localStorage.removeItem('pmba_notes');localStorage.removeItem('pmba_errors');render();document.getElementById('quickNotes').value='';document.getElementById('errorBook').value=''}}
-function exportData(){const blob=new Blob([JSON.stringify({state,notes:quickNotes.value,errors:errorBook.value},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='progresso-pmba.json';a.click()}
-document.querySelectorAll('.nav button').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(btn.dataset.page).classList.add('active');document.getElementById('pageTitle').textContent=btn.textContent.trim()});
-const quickNotes=document.getElementById('quickNotes'), errorBook=document.getElementById('errorBook');quickNotes.value=localStorage.getItem('pmba_notes')||'';errorBook.value=localStorage.getItem('pmba_errors')||'';quickNotes.oninput=()=>localStorage.setItem('pmba_notes',quickNotes.value);errorBook.oninput=()=>localStorage.setItem('pmba_errors',errorBook.value);
-render();
+const DATA=[
+{cat:'base',materia:'Língua Portuguesa',desc:'Interpretação, gramática e domínio da norma culta.',assuntos:['Interpretação de texto','Tipologia e gêneros textuais','Fonética e fonologia','Divisão silábica','Acentuação gráfica','Ortografia oficial','Semântica: sentido literal e figurado','Classes de palavras','Pronomes','Verbos','Concordância nominal e verbal','Regência nominal e verbal','Crase','Pontuação','Sintaxe da oração','Sintaxe do período','Colocação pronominal','Redação oficial']},
+{cat:'exatas',materia:'Matemática e Raciocínio Lógico',desc:'Base numérica, problemas e lógica para questões de prova.',assuntos:['Operações fundamentais','Frações','Números decimais','Razão e proporção','Regra de três','Porcentagem','Juros simples','Juros compostos','Equações do 1º grau','Equações do 2º grau','Função afim','Função quadrática','Geometria plana','Geometria espacial','PA e PG','Análise combinatória','Probabilidade','Estatística básica','Proposições lógicas','Conectivos lógicos','Tabelas-verdade','Equivalências lógicas']},
+{cat:'base',materia:'Informática',desc:'Conceitos, Windows, Office, internet e segurança.',assuntos:['Hardware e periféricos','Software e sistemas operacionais','Windows 10 e 11','Gerenciamento de arquivos','Microsoft Word','Microsoft Excel','PowerPoint','Internet e navegadores','E-mail e nuvem','Redes de computadores','Protocolos HTTP, HTTPS e DNS','Segurança da informação','Malwares e golpes digitais','Backup e boas práticas']},
+{cat:'direito',materia:'Direito Constitucional',desc:'Constituição Federal, direitos fundamentais e segurança pública.',assuntos:['Conceito de Constituição','Supremacia constitucional','Princípios fundamentais','Objetivos fundamentais','Direitos e garantias fundamentais','Artigo 5º da CF','Direitos sociais','Nacionalidade','Direitos políticos','Administração pública: Art. 37','Servidores públicos','Segurança pública: Art. 144','Remédios constitucionais','Organização do Estado']},
+{cat:'direito',materia:'Direito Administrativo',desc:'Administração pública, princípios, atos e poderes.',assuntos:['Conceito de Administração Pública','Princípios expressos: LIMPE','Princípios implícitos','Poderes administrativos','Abuso de poder','Atos administrativos','Elementos do ato administrativo','Atributos do ato administrativo','Anulação e revogação','Responsabilidade civil do Estado','Licitações e contratos','Nova Lei de Licitações']},
+{cat:'direito',materia:'Direito Penal',desc:'Parte geral, teoria do crime e crimes em espécie.',assuntos:['Princípios do Direito Penal','Lei penal no tempo','Lei penal no espaço','Teoria geral do crime','Fato típico','Conduta e omissão','Resultado e nexo causal','Dolo e culpa','Erro de tipo e erro de proibição','Ilicitude','Excludentes de ilicitude','Culpabilidade','Concurso de pessoas','Iter criminis e tentativa','Crimes contra a vida','Lesão corporal','Crimes contra a honra']},
+{cat:'direito',materia:'Direito Penal Militar',desc:'Noções de legislação penal militar.',assuntos:['Conceito de crime militar','Artigo 9º do CPM','Crimes propriamente militares','Crimes impropriamente militares','Hierarquia e disciplina','Aplicação da lei penal militar']},
+{cat:'direito',materia:'Direitos Humanos',desc:'DUDH, tratados e proteção da dignidade humana.',assuntos:['Conceito de Direitos Humanos','DUDH','Artigos 1º ao 5º da DUDH','Pacto de San José da Costa Rica','Uso progressivo da força','Igualdade racial','Igualdade de gênero','Proteção contra discriminação']},
+{cat:'direito',materia:'Legislação Estadual / PMBA',desc:'Normas específicas do Estado da Bahia e carreira militar.',assuntos:['Estatuto dos Policiais Militares da Bahia','Regime disciplinar','Hierarquia e disciplina militar','Deveres e responsabilidades','Direitos do policial militar','Legislação sobre igualdade racial na Bahia','Legislação sobre igualdade de gênero','Organização da PMBA']}
+];
+const $=id=>document.getElementById(id);let filter='all',current=null;
+const key=id=>'pmba_topic_'+id;const slug=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+function getTopicId(m,a){return slug(m+'-'+a)}function read(id){return JSON.parse(localStorage.getItem(key(id))||'{}')}function write(id,obj){localStorage.setItem(key(id),JSON.stringify({...read(id),...obj}));updateMetrics();renderSubjects();renderReviews();renderAllErrors()}
+function showView(id,btn){document.querySelectorAll('.view').forEach(v=>v.style.display='none');$('detail').classList.remove('active');$(id).style.display='block';document.querySelectorAll('.nav button,.mobileNav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='conteudos')renderSubjects();if(id==='revisoes')renderReviews();if(id==='erros')renderAllErrors()}
+function setFilter(f,btn){filter=f;document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));btn.classList.add('active');renderSubjects()}
+function renderSubjects(){const q=($('search')?.value||'').toLowerCase();const box=$('subjects');if(!box)return;box.innerHTML='';DATA.filter(s=>filter==='all'||s.cat===filter).filter(s=>(s.materia+' '+s.assuntos.join(' ')).toLowerCase().includes(q)).forEach(s=>{const done=s.assuntos.filter(a=>{const r=read(getTopicId(s.materia,a));return r.theory&&r.questions&&r.review}).length;const el=document.createElement('div');el.className='card subject';el.innerHTML=`<h3>${s.materia}</h3><p>${s.desc}</p><div class="bar"><div class="fill" style="width:${Math.round(done/s.assuntos.length*100)}%"></div></div><p style="font-size:13px;margin-top:10px"><b>${done}/${s.assuntos.length}</b> assuntos concluídos</p><div class="topics">${s.assuntos.map(a=>{const id=getTopicId(s.materia,a),r=read(id);return `<div class="topic" onclick="openTopic('${s.materia.replaceAll("'","&#39;")}','${a.replaceAll("'","&#39;")}')"><span>${a}</span><div class="badges"><em class="badge ${r.theory?'done':''}">T</em><em class="badge ${r.questions?'done':''}">Q</em><em class="badge ${r.review?'done':''}">R</em></div></div>`}).join('')}</div>`;box.appendChild(el)});}
+function openTopic(materia,assunto){current={materia,assunto,id:getTopicId(materia,assunto)};const subj=DATA.find(s=>s.materia===materia);const r=read(current.id);document.querySelectorAll('.view').forEach(v=>v.style.display='none');$('detail').classList.add('active');$('dSubject').textContent=materia;$('dTitle').textContent=assunto;$('dDesc').textContent=subj.desc;$('ckTheory').checked=!!r.theory;$('ckQuestions').checked=!!r.questions;$('ckReview').checked=!!r.review;$('notes').value=r.notes||'';$('summary').value=r.summary||'';renderTopicLists()}
+function closeTopic(){$('detail').classList.remove('active');$('conteudos').style.display='block';renderSubjects()}
+function saveChecks(){write(current.id,{theory:$('ckTheory').checked,questions:$('ckQuestions').checked,review:$('ckReview').checked})}
+function saveTopicText(){write(current.id,{notes:$('notes').value,summary:$('summary').value});alert('Anotações salvas!')}
+function addLink(){const v=$('linkInput').value.trim();if(!v)return;const r=read(current.id);write(current.id,{links:[...(r.links||[]),v]});$('linkInput').value='';renderTopicLists()}
+function addFlashcard(){const f=$('front').value.trim(),b=$('back').value.trim();if(!f||!b)return;const r=read(current.id);write(current.id,{flashcards:[...(r.flashcards||[]),{f,b}]});$('front').value='';$('back').value='';renderTopicLists()}
+function addError(){const q=$('errQ').value.trim(),a=$('errA').value.trim();if(!q||!a)return;const r=read(current.id);write(current.id,{errors:[...(r.errors||[]),{q,a,date:new Date().toLocaleDateString('pt-BR')}]});$('errQ').value='';$('errA').value='';renderTopicLists()}
+function renderTopicLists(){const r=read(current.id);$('links').innerHTML=(r.links||[]).length?(r.links||[]).map(x=>`<div class="linkItem">🔗 ${x}</div>`).join(''):'<div class="empty">Nenhum link ainda.</div>';$('flashcards').innerHTML=(r.flashcards||[]).length?(r.flashcards||[]).map(x=>`<div class="flash"><b>${x.f}</b><span>${x.b}</span></div>`).join(''):'<div class="empty">Nenhum flashcard ainda.</div>';$('topicErrors').innerHTML=(r.errors||[]).length?(r.errors||[]).map(x=>`<div class="errorItem danger"><b>${x.q}</b><span>${x.a}</span><small> — ${x.date}</small></div>`).join(''):'<div class="empty">Nenhum erro registrado.</div>'}
+function allTopics(){return DATA.flatMap(s=>s.assuntos.map(a=>({materia:s.materia,assunto:a,id:getTopicId(s.materia,a)})))}
+function updateMetrics(){const topics=allTopics();let done=0,errors=0;topics.forEach(t=>{const r=read(t.id);if(r.theory&&r.questions&&r.review)done++;errors+=(r.errors||[]).length});const pct=Math.round(done/topics.length*100);$('mProgress').textContent=pct+'%';$('mFill').style.width=pct+'%';$('mDone').textContent=done;$('mTotal').textContent=topics.length;$('mErrors').textContent=errors}
+function renderQuick(){const box=$('quickSubjects');box.innerHTML=DATA.map(s=>`<button class="pill" onclick="showView('conteudos');setTimeout(()=>{$('search').value='${s.materia}';renderSubjects()},10)">${s.materia}</button>`).join('')}
+function renderReviews(){const box=$('reviewList');if(!box)return;const items=allTopics().filter(t=>{const r=read(t.id);return (r.theory||r.questions)&&!r.review});box.innerHTML=items.length?items.map(t=>`<div class="card subject" onclick="openTopic('${t.materia.replaceAll("'","&#39;")}','${t.assunto.replaceAll("'","&#39;")}')"><h3>${t.assunto}</h3><p>${t.materia}</p></div>`).join(''):'<div class="empty">Nenhuma revisão pendente ainda.</div>'}
+function renderAllErrors(){const box=$('allErrors');if(!box)return;let list=[];allTopics().forEach(t=>{const r=read(t.id);(r.errors||[]).forEach(e=>list.push({...e,...t}))});box.innerHTML=list.length?list.map(e=>`<div class="card danger"><div class="eyebrow">${e.materia} • ${e.assunto}</div><h3>${e.q}</h3><p>${e.a}</p><small>${e.date}</small></div>`).join(''):'<div class="empty">Você ainda não registrou erros.</div>'}
+renderQuick();renderSubjects();updateMetrics();renderReviews();renderAllErrors();
 </script>
 </body>
 </html>
